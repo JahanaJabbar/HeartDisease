@@ -1,70 +1,3 @@
-﻿#!/usr/bin/env python
-# coding: utf-8
-
-# # Project: Predicting Heart Disease with Classification Machine Learning Algorithms
-
-# # Table of Contents
-#     1. Introduction:
-#         Scenario
-#         Goal
-#         Features & Predictor
-#  
-#     2. Data Wrangling
-#     
-#     3. Exploratory Data Analysis:
-#         Correlations
-#         Violin & Box Plots
-#         Filtering data by positive & negative Heart Disease patient
-#         
-#     4. Machine Learning + Predictive Analytics:
-#         Prepare Data for Modeling
-#         Modeling/Training
-#         Making the Confusion Matrix
-#         Feature Importance
-#         Predictions
-#         
-#     5. Conclusions
-# 
-
-# # 1. Introduction
-
-# # Scenario:
-
-#  You have just been hired at a Hospital with an alarming number of patients coming in reporting various cardiac symptoms. A cardioligist measures vitals & hands you this data to peform Data Analysis and predict whether certain patients have Heart Disease. 
-# 
-
-# # Goal: 
-# 
-# 
-# 
-
-# 
-#     -To predict whether a patient should be diagnosed with Heart Disease. This is a binary outcome. 
-#     Positive (+) = 1, patient diagnosed with Heart Disease  
-#     Negative (-) = 0, patient not diagnosed with Heart Disease 
-# 
-#     -To experiment with various Classification Models & see which yields  greatest accuracy. 
-#     - Examine trends & correlations within our data
-#     - determine which features are important in determing Positive/Negative Heart Disease
-
-# # Features & Predictor:
-
-# Our Predictor (Y, Positive or Negative diagnosis of Heart Disease) is determined by 13 features (X):
-# 
-# 1. age (#)
-# 2. sex : 1= Male, 0= Female (Binary)
-# 3. (cp)chest pain type (4 values -Ordinal):Value 1: typical angina ,Value 2: atypical angina, Value 3: non-anginal pain , Value 4: asymptomatic (
-# 4. (trestbps) resting blood pressure (#)
-# 5. (chol) serum cholestoral in mg/dl  (#)
-# 6. (fbs)fasting blood sugar > 120 mg/dl(Binary)(1 = true; 0 = false)
-# 7. (restecg) resting electrocardiographic results(values 0,1,2)
-# 8. (thalach) maximum heart rate achieved (#)
-# 9. (exang) exercise induced angina (binary) (1 = yes; 0 = no) 
-# 10. (oldpeak) = ST depression induced by exercise relative to rest (#) 
-# 11. (slope) of the peak exercise ST segment (Ordinal) (Value 1: upsloping , Value 2: flat , Value 3: downsloping )
-# 12. (ca) number of major vessels (0-3, Ordinal) colored by fluoroscopy 
-# 13. (thal) maximum heart rate achieved - (Ordinal): 3 = normal; 6 = fixed defect; 7 = reversable defect
-
 # In[1]:
 
 
@@ -169,11 +102,11 @@ sns.pairplot(subData)
 # In[12]:
 
 
-sns.catplot(x="target", y="oldpeak", hue="slope", kind="bar", data=data);
+#sns.catplot(x="target", y="oldpeak", hue="slope", kind="bar", data=data);
 
-plt.title('ST depression (induced by exercise relative to rest) vs. Heart Disease',size=25)
-plt.xlabel('Heart Disease',size=20)
-plt.ylabel('ST depression',size=20)
+#plt.title('ST depression (induced by exercise relative to rest) vs. Heart Disease',size=25)
+#plt.xlabel('Heart Disease',size=20)
+#plt.ylabel('ST depression',size=20)
 
 
 # ST segment depression occurs because when the ventricle is at rest and therefore repolarized. If the trace in the ST segment is abnormally low below the baseline, this can lead to this Heart Disease. This is supports the plot above because low ST Depression yields people at greater risk for heart disease. While a high ST depression is considered normal & healthy. The "slope" hue, refers to the peak exercise ST segment, with values: 0: upsloping , 1: flat , 2: downsloping). Both positive & negative heart disease patients exhibit equal distributions of the 3 slope categories.
@@ -186,11 +119,11 @@ plt.ylabel('ST depression',size=20)
 # In[156]:
 
 
-plt.figure(figsize=(12,8))
-sns.violinplot(x= 'target', y= 'oldpeak',hue="sex", inner='quartile',data= data )
-plt.title("Thalach Level vs. Heart Disease",fontsize=20)
-plt.xlabel("Heart Disease Target", fontsize=16)
-plt.ylabel("Thalach Level", fontsize=16)
+#plt.figure(figsize=(12,8))
+#sns.violinplot(x= 'target', y= 'oldpeak',hue="sex", inner='quartile',data= data )
+#plt.title("Thalach Level vs. Heart Disease",fontsize=20)
+#plt.xlabel("Heart Disease Target", fontsize=16)
+#plt.ylabel("Thalach Level", fontsize=16)
 
 
 # We can see that the overall shape & distribution for negative & positive patients differ vastly. Positive patients exhibit a lower median for ST depression level & thus a great distribution of their data is between 0 & 2, while negative patients are between 1 & 3. In addition, we dont see many differences between male & female target outcomes.  
@@ -198,11 +131,11 @@ plt.ylabel("Thalach Level", fontsize=16)
 # In[14]:
 
 
-plt.figure(figsize=(12,8))
-sns.boxplot(x= 'target', y= 'thalach',hue="sex", data=data )
-plt.title("ST depression Level vs. Heart Disease", fontsize=20)
-plt.xlabel("Heart Disease Target",fontsize=16)
-plt.ylabel("ST depression induced by exercise relative to rest", fontsize=16)
+#plt.figure(figsize=(12,8))
+#sns.boxplot(x= 'target', y= 'thalach',hue="sex", data=data )
+#plt.title("ST depression Level vs. Heart Disease", fontsize=20)
+#plt.xlabel("Heart Disease Target",fontsize=16)
+#plt.ylabel("ST depression induced by exercise relative to rest", fontsize=16)
 
 
 # Positive patients exhibit a hightened median for ST depression level, while negative patients have lower levels. In addition, we dont see many differences between male & female target outcomes, expect for the fact that males have slightly larger ranges of ST Depression.
@@ -296,7 +229,16 @@ model1.fit(x_train, y_train) # Train/Fit model
 
 y_pred1 = model1.predict(x_test) # get y predictions
 print("\nLogistic Regression\n")
-print(classification_report(y_test, y_pred1)) # output accuracy
+print(classification_report(y_test, y_pred1))
+Ab5=(classification_report(y_test, y_pred1)) # output accuracy
+Abc5=[]
+for i in Ab5:
+   Abc5.append(i)
+Abc15=Abc5[203:207]
+new15=''.join(Abc15)
+new25=float(new15)
+print(new25)
+
 
 
 # Model 2: K-NN (K-Nearest Neighbors)
@@ -312,7 +254,16 @@ model2.fit(x_train, y_train) # Train/Fit model
 
 y_pred2 = model2.predict(x_test) # get y predictions
 print("\nK-NN (K-Nearest Neighbors)\n")
-print(classification_report(y_test, y_pred2)) # output accuracy
+print(classification_report(y_test, y_pred2))
+Ab4=(classification_report(y_test, y_pred2)) # output accuracy
+Abc4=[]
+for i in Ab4:
+   Abc4.append(i)
+Abc14=Abc4[203:207]
+new14=''.join(Abc14)
+new24=float(new14)
+print(new24)
+
 
 
 # Model 3: SVM (Support Vector Machine)
@@ -328,7 +279,16 @@ model3.fit(x_train, y_train) # Train/Fit model
 
 y_pred3 = model3.predict(x_test) # get y predictions
 print("\nSVM (Support Vector Machine)\n")
-print(classification_report(y_test, y_pred3)) # output accuracy
+print(classification_report(y_test, y_pred3))
+Ab6=(classification_report(y_test, y_pred3)) # output accuracy
+Abc6=[]
+for i in Ab6:
+   Abc6.append(i)
+Abc16=Abc6[203:207]
+new16=''.join(Abc16)
+new26=float(new16)
+print(new26)
+
 
 
 # Model 4:  Naives Bayes Classifier
@@ -344,7 +304,16 @@ model4.fit(x_train, y_train) # Train/Fit model
 
 y_pred4 = model4.predict(x_test) # get y predictions
 print("\n Naives Bayes Classifier\n")
-print(classification_report(y_test, y_pred4)) # output accuracy
+print(classification_report(y_test, y_pred4))
+Ab3=(classification_report(y_test, y_pred4)) # output accuracy
+Abc3=[]
+for i in Ab3:
+   Abc3.append(i)
+Abc13=Abc3[203:207]
+new13=''.join(Abc13)
+new23=float(new13)
+print(new23)
+
 
 
 # Model 5: Decision Trees
@@ -361,7 +330,15 @@ model5.fit(x_train, y_train) # Train/Fit model
 
 y_pred5 = model5.predict(x_test) # get y predictions
 print("\nDecision Trees \n")
-print(classification_report(y_test, y_pred5)) # output accuracy
+print(classification_report(y_test, y_pred5))
+Ab=(classification_report(y_test, y_pred5))# output accuracy
+Abc=[]
+for i in Ab:
+   Abc.append(i)
+Abc2=Abc[203:207]
+new1=''.join(Abc2)
+new2=float(new1)
+print(new2)
 
 
 # Model 6: Random Forest
@@ -378,7 +355,15 @@ model6.fit(x_train, y_train) # Train/Fit model
 
 y_pred6 = model6.predict(x_test) # get y predictions
 print("\nRandom Forest \n")
-print(classification_report(y_test, y_pred6)) # output accuracy
+print(classification_report(y_test, y_pred6))
+Ab1=(classification_report(y_test, y_pred6)) # output accuracy
+Abc1=[]
+for i in Ab1:
+   Abc1.append(i)
+Abc11=Abc1[204:208]
+new11=''.join(Abc11)
+new21=float(new11)
+print(new21)
 
 
 # Model 7:  XGBoost
@@ -394,13 +379,25 @@ model7.fit(x_train, y_train)
 y_pred7 = model7.predict(x_test)
 print("\nXGBoost\n")
 print(classification_report(y_test, y_pred7))
+Ab2=(classification_report(y_test, y_pred7))
+Abc2=[]
+for i in Ab2:
+   Abc2.append(i)
+Abc12=Abc2[203:207]
+new12=''.join(Abc12)
+new22=float(new12)
+print(new22)
 
 
-#sns.catplot(x="Algorithms", y="Accuracy", hue="slope", kind="bar", data=data);
-
-#plt.title('ACCURACY',size=25)
-#plt.xlabel('Algorithms',size=20)
-#plt.ylabel('Accuracy',size=20)
+x1=['LR','K-NN','SVM','Naive B','DecisionT','RandomForest','XG Boost']
+y1=[new25,new24,new26,new23,new2,new21,new22]
+fig = plt.figure(figsize = (8,3))
+plt.bar(x1, y1, color ='maroon', width = 0.4)
+plt.title('ACCURACY',size=25)
+plt.xlabel('Algorithms',size=20)
+plt.ylabel('Accuracy values',size=20)
+plt.ylim(0.60, 0.85)
+plt.show()
 
 
 # From comparing the 7 models, we can conclude that Model 6: Random Forest yields the highest accuracy. With an accuracy of 80%.
